@@ -15,10 +15,8 @@ const (
 	connectionStringTemplate = "mongodb://%s:%s@%s"
 )
 
-// Client to connect to mongodb
 var Client *mongo.Client
 
-// Connect to create the connection to MongoDB
 func Connect() {
 	username := os.Getenv("MONGODB_USERNAME")
 	password := os.Getenv("MONGODB_PASSWORD")
@@ -27,7 +25,6 @@ func Connect() {
 	connectionURI := fmt.Sprintf(connectionStringTemplate, username, password, clusterEndpoint)
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
-	//Cancel context to avoid memory leak
 	defer cancel()
 
 	client, err := mongo.NewClient(options.Client().ApplyURI(connectionURI))

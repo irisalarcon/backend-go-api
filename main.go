@@ -10,9 +10,9 @@ import (
 
 func main() {
 
-	// Create MongoDB Client
+	//MongoDB Client
 	db.Connect()
-	// Disconnect client when main function stops running
+	// Disconnect client
 	defer db.Client.Disconnect(context.Background())
 
 	r := gin.Default()
@@ -25,7 +25,7 @@ func main() {
 	r.DELETE("/movie/:id", handlers.DeleteMovieByIDHandler)
 	r.PUT("/movie", handlers.WatchedMovieHandler)
 
-	// listen and serve on 0.0.0.0:8080 and panics when error occurs.
+	// listen and serve on 0.0.0.0:8080
 	err := r.Run(":8080")
 	if err != nil {
 		panic(err)

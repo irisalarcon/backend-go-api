@@ -9,9 +9,6 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-// Movie data structure
-// each Movie struct will contain an ID, a Title, a Year and a Watched status.
-// the second part of the struct shows how these 'fields' can be accessed in JSON.
 type Movie struct {
 	ID      primitive.ObjectID `json:"_id" bson:"_id"`
 	Title   string             `json:"title"`
@@ -19,7 +16,7 @@ type Movie struct {
 	Watched bool               `json:"watched"`
 }
 
-// GetAllMovies retrieves all movies from the db
+// GetAllMovies from the db
 func GetAllMovies() ([]*Movie, error) {
 	var movies []*Movie
 
@@ -38,7 +35,7 @@ func GetAllMovies() ([]*Movie, error) {
 	return movies, nil
 }
 
-// GetMovieByID retrieves a movie by its id from the db
+// GetMovieByID from the db
 func GetMovieByID(id primitive.ObjectID) (*Movie, error) {
 	var movie *Movie
 	collection := db.Client.Database("movies").Collection("movies")
@@ -50,7 +47,7 @@ func GetMovieByID(id primitive.ObjectID) (*Movie, error) {
 
 }
 
-// AddMovie adds a movie to the db
+// AddMovie to the db
 func AddMovie(movie *Movie) (primitive.ObjectID, error) {
 	movie.ID = primitive.NewObjectID()
 	result, err := db.Client.Database("movies").Collection("movies").InsertOne(context.TODO(), movie)
@@ -62,7 +59,7 @@ func AddMovie(movie *Movie) (primitive.ObjectID, error) {
 	return oid, nil
 }
 
-// DeleteMovieByID deletes a movie by its id from the db
+// DeleteMovieByID from the db
 func DeleteMovieByID(id primitive.ObjectID) error {
 	collection := db.Client.Database("movies").Collection("movies")
 	_, err := collection.DeleteOne(context.TODO(), bson.M{"_id": id})
@@ -72,7 +69,7 @@ func DeleteMovieByID(id primitive.ObjectID) error {
 	return nil
 }
 
-// WatchedMovie will put a movie its attribue 'watched' on true
+// WatchedMovie put a movie
 func WatchedMovie(id primitive.ObjectID) error {
 	collection := db.Client.Database("movies").Collection("movies")
 	_, err := collection.UpdateOne(context.TODO(),

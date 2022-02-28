@@ -9,7 +9,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-// GetAllMoviesHandler to get all movies
+//get all movies
 func GetAllMoviesHandler(c *gin.Context) {
 	loadedMovies, err := movie.GetAllMovies()
 	if err != nil {
@@ -19,7 +19,7 @@ func GetAllMoviesHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, loadedMovies) //gin.H{loadedMovies})
 }
 
-// GetMovieByIDHandler to get a movie by ID
+//get a movie by ID
 func GetMovieByIDHandler(c *gin.Context) {
 	movieID, err := primitive.ObjectIDFromHex(c.Param("id"))
 	if err != nil {
@@ -34,7 +34,7 @@ func GetMovieByIDHandler(c *gin.Context) {
 		"year": loadedMovie.Year, "watched": loadedMovie.Watched})
 }
 
-// AddMovieHandler to add a movie
+//add a movie
 func AddMovieHandler(c *gin.Context) {
 	var mov movie.Movie
 	if err := c.ShouldBindJSON(&mov); err != nil {
@@ -50,7 +50,7 @@ func AddMovieHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"id": id})
 }
 
-// DeleteMovieByIDHandler to get a movie by ID
+// Delete a movie by ID
 func DeleteMovieByIDHandler(c *gin.Context) {
 	movieID, err := primitive.ObjectIDFromHex(c.Param("id"))
 	if err != nil {

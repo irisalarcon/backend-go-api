@@ -24,7 +24,5 @@ services:
       ME_CONFIG_MONGODB_SERVER: mongo
     networks:
       app-env:
-
-
 networks:
   app-env:
